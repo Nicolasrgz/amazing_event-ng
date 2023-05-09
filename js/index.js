@@ -22,3 +22,4 @@ function imprimirDatos (lista, ubicacion){
 }
 
 imprimirDatos(data.events , section)
+
