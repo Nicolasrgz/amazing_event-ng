@@ -23,3 +23,24 @@ function imprimirDatos (lista, ubicacion){
 
 imprimirDatos(data.events , section)
 
+const formulario = document.querySelector('#formulario')
+const inputBusqueda = document.getElementById('busqueda')
+
+inputBusqueda.addEventListener('input', ()=>{
+  const filtrarPorBusqueda = filtrarPorTitulo(data.events, inputBusqueda.value)
+  section.innerHTML = ''; 
+  imprimirDatos(filtrarPorBusqueda , section); 
+})
+
+function filtrarPorTitulo (data, busqueda){
+  return data.filter(event => event.name.toLowerCase().includes(busqueda.toLowerCase()))
+}
+
+formulario.addEventListener('change', ()=>{
+  const filtrarPorBusqueda = filtrarPorTitulo(data.events, inputBusqueda.value)
+  imprimirDatos(filtrarPorBusqueda , section); 
+})
+
+function filtrarPorCategoria (data){
+  return data.filter(event => event.category)
+}
