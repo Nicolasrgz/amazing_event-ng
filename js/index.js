@@ -10,7 +10,7 @@ function armarDiv (objeto){
             </div>
             <div class="card-body d-flex gap-5">
               <p>price: $${objeto.price}</p>
-              <a href="../html/details.html" class="card-link">more info</a>
+              <a href="../html/details.html?id=${objeto.id}" class="card-link">more info</a>
             </div>
         </div>`
 }
@@ -29,6 +29,7 @@ const formulario = document.getElementById("formulario")
 const inputBusqueda = document.getElementById('busqueda')
 const events = data.events
 
+//agregar checkboxs e imprimir checkbox
 
 function armarCheckbocx(objeto) {
   return `<input type="checkbox" id="${objeto.category}" name="checkbox" value="${objeto.category}">
@@ -47,6 +48,8 @@ function imprimirCheckbox(lista, ubicacion) {
 
 imprimirCheckbox(events, formulario)
 
+//funciones de filtro por categoria y busqueda
+
 function filtrarPorTitulo (data, busqueda){
   return data.filter(event => event.name.toLowerCase().includes(busqueda.toLowerCase()))
 }
@@ -58,6 +61,8 @@ function filtrarPorCategoria(data) {
   });
   return data.filter(event => categoriasSeleccionadas.includes(event.category));
 }
+
+//escuchador de evento del buscador
 
 inputBusqueda.addEventListener("input", () => {
   let filteredEvents = events; 
@@ -75,6 +80,7 @@ inputBusqueda.addEventListener("input", () => {
   imprimirDatos(filteredEvents, section);
 });
 
+//escuchador de evento del formulario
 
 formulario.addEventListener('change', ()=>{
   let filteredEvents = filtrarPorTitulo(events, inputBusqueda.value);

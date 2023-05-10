@@ -11,7 +11,7 @@ function armarDiv (objeto){
             </div>
             <div class="card-body d-flex gap-5">
               <p>price: $${objeto.price}</p>
-              <a href="../html/details.html" class="card-link">more info</a>
+              <a href="../html/details.html?id=${objeto.id}" class="card-link">more info</a>
             </div>
         </div>`
 }
@@ -34,6 +34,7 @@ const formulario = document.getElementById("formulario")
 const inputBusqueda = document.getElementById('busqueda')
 const events = data.events
 
+//agregar checkboxs e imprimir checkbox
 
 function armarCheckbocx(objeto) {
   return `<input type="checkbox" id="${objeto.category}" name="checkbox" value="${objeto.category}">
@@ -52,6 +53,8 @@ function imprimirCheckbox(lista, ubicacion) {
 
 imprimirCheckbox(events, formulario)
 
+//funciones de filtro por categoria y busqueda
+
 function filtrarPorTitulo (data, busqueda){
   return data.filter(event => event.name.toLowerCase().includes(busqueda.toLowerCase()))
 }
@@ -64,34 +67,37 @@ function filtrarPorCategoria(data) {
   return data.filter(event => categoriasSeleccionadas.includes(event.category));
 }
 
+//escuchador de evento del buscador
+
 inputBusqueda.addEventListener("input", () => {
-  let filteredEvents = events; 
+  let eventosFiltrados = events; 
     if (inputBusqueda.value) { 
-      filteredEvents = filtrarPorTitulo(events, inputBusqueda.value);
+      eventosFiltrados = filtrarPorTitulo(events, inputBusqueda.value);
     }
   let checkedCheckbox = formulario.querySelectorAll("input[name='checkbox']:checked");
     if (checkedCheckbox.length > 0) { 
       checkedCheckbox.forEach(checkbox => {
-        filteredEvents = filtrarPorCategoria(filteredEvents, checkbox.value);
+        eventosFiltrados = filtrarPorCategoria(eventosFiltrados, checkbox.value);
     });
   }
 
   section.innerHTML = "";
-  imprimirDatos(filteredEvents, section);
+  imprimirDatos(eventosFiltrados, section);
 });
 
+//escuchador de evento del formulario
 
 formulario.addEventListener('change', ()=>{
-  let filteredEvents = filtrarPorTitulo(events, inputBusqueda.value);
+  let eventosFiltrados = filtrarPorTitulo(events, inputBusqueda.value);
   let checkedCheckbox = formulario.querySelectorAll("input[name='checkbox']:checked");
   if (checkedCheckbox.length === 0) {
     section.innerHTML = "";
     imprimirDatos(events, section);
   } else {
     checkedCheckbox.forEach(checkbox => {
-      filteredEvents = filtrarPorCategoria(filteredEvents, checkbox.value);
+      eventosFiltrados = filtrarPorCategoria(eventosFiltrados, checkbox.value);
     });
     section.innerHTML = "";
-    imprimirDatos(filteredEvents, section);
+    imprimirDatos(eventosFiltrados, section);
   }
 });
