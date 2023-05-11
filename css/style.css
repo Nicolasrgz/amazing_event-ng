@@ -374,9 +374,13 @@ th{
     }
 
     .search-edit{
-        gap: 20rem;
+        gap: 2rem;
     }
 }
 
-/* task 3 */
+@media only screen and (min-width: 1330px){
+    .search-edit{
+        gap: 12rem;
+    }
+}
 
