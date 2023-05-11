@@ -1,4 +1,3 @@
-
 let section = document.getElementById("section")
 
 function armarDiv (objeto){
@@ -69,7 +68,7 @@ function filtrarPorCategoria(data) {
 
 //escuchador de evento del buscador
 
-inputBusqueda.addEventListener("input", () => {
+inputBusqueda.addEventListener("input", ()=>{
   let eventosFiltrados = events; 
     if (inputBusqueda.value) { 
       eventosFiltrados = filtrarPorTitulo(events, inputBusqueda.value);
@@ -77,7 +76,7 @@ inputBusqueda.addEventListener("input", () => {
   let checkedCheckbox = formulario.querySelectorAll("input[name='checkbox']:checked");
     if (checkedCheckbox.length > 0) { 
       checkedCheckbox.forEach(checkbox => {
-        eventosFiltrados = filtrarPorCategoria(eventosFiltrados, checkbox.value);
+      eventosFiltrados = filtrarPorCategoria(eventosFiltrados, checkbox.value);
     });
   }
 

@@ -18,12 +18,12 @@ function armarDiv (objeto){
 
 function imprimirDatos (lista, ubicacion){
     for (let elemento of lista){
-        let fechaEvento = new Date(elemento.date).getTime();
-        let fechaLimite = new Date('2023-01-01').getTime();
-        if (fechaEvento >= fechaLimite) {
-            ubicacion.innerHTML += armarDiv(elemento);
-        }
+      let fechaEvento = new Date(elemento.date).getTime();
+      let fechaLimite = new Date('2023-01-01').getTime();
+      if (fechaEvento >= fechaLimite) {
+        ubicacion.innerHTML += armarDiv(elemento);
     }
+  }
 }
 
 imprimirDatos(data.events , section)

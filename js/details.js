@@ -1,11 +1,7 @@
 const contenedor = document.getElementById('container')
-
 const evento = data.events
-
 const params = new URLSearchParams( location.search )
-
 let identificador = params.get('id')
-
 const eventDetails = evento.find(events => events.id == identificador)
 
 document.title = `details of ${eventDetails.name}`
@@ -22,4 +18,4 @@ contenedor.innerHTML = `<div class="flex-container-details">
  <h5 class="h5-p">${eventDetails.capacity}</h5>
  <h3 class="h5-p">${eventDetails.price}</h3>
 </div>
-</div> `
+</div>`
