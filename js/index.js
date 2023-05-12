@@ -65,34 +65,34 @@ function filtrarPorCategoria(data) {
 //escuchador de evento del buscador
 
 inputBusqueda.addEventListener("input", () => {
-  let filteredEvents = events; 
+  let eventosFiltrados = events; 
     if (inputBusqueda.value) { 
-      filteredEvents = filtrarPorTitulo(events, inputBusqueda.value);
+      eventosFiltrados = filtrarPorTitulo(events, inputBusqueda.value);
     }
   let checkedCheckbox = formulario.querySelectorAll("input[name='checkbox']:checked");
     if (checkedCheckbox.length > 0) { 
       checkedCheckbox.forEach(checkbox => {
-        filteredEvents = filtrarPorCategoria(filteredEvents, checkbox.value);
+        eventosFiltrados = filtrarPorCategoria(eventosFiltrados, checkbox.value);
     });
   }
 
   section.innerHTML = "";
-  imprimirDatos(filteredEvents, section);
+  imprimirDatos(eventosFiltrados, section);
 });
 
 //escuchador de evento del formulario
 
 formulario.addEventListener('change', ()=>{
-  let filteredEvents = filtrarPorTitulo(events, inputBusqueda.value);
+  let eventosFiltrados = filtrarPorTitulo(events, inputBusqueda.value);
   let checkedCheckbox = formulario.querySelectorAll("input[name='checkbox']:checked");
   if (checkedCheckbox.length === 0) {
     section.innerHTML = "";
     imprimirDatos(events, section);
   } else {
     checkedCheckbox.forEach(checkbox => {
-      filteredEvents = filtrarPorCategoria(filteredEvents, checkbox.value);
+      eventosFiltrados = filtrarPorCategoria(eventosFiltrados, checkbox.value);
     });
     section.innerHTML = "";
-    imprimirDatos(filteredEvents, section);
+    imprimirDatos(eventosFiltrados, section);
   }
 });
