@@ -11,7 +11,7 @@ function armarDiv (objeto){
             </div>
             <div class="card-body d-flex gap-5">
               <p>price: $${objeto.price}</p>
-              <a href="../html/details.html?id=${objeto.id}" class="card-link">more info</a>
+              <a href="../html/details.html?id=${objeto._id}" class="card-link">more info</a>
             </div>
         </div>`
 }

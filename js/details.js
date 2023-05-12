@@ -1,7 +1,7 @@
 const contenedor = document.getElementById('container')
 const evento = data.events
 const params = new URLSearchParams( location.search )
-let identificador = params.get('id')
+let identificador = params.get('_id')
 const eventDetails = evento.find(events => events.id == identificador)
 
 document.title = `details of ${eventDetails.name}`

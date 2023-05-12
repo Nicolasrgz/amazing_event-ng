@@ -1,3 +1,9 @@
+fetch("<@&1085587224030089249> link api -> https://mindhub-xj03.onrender.com/api/amazing")
+.then(res => res.json())
+.then(response => {
+  console.log(response)
+})
+
 let section = document.getElementById("section")
 
 function armarDiv (objeto){
@@ -10,7 +16,7 @@ function armarDiv (objeto){
             </div>
             <div class="card-body d-flex gap-5">
               <p>price: $${objeto.price}</p>
-              <a href="../html/details.html?id=${objeto.id}" class="card-link">more info</a>
+              <a href="../html/details.html?id=${objeto._id}" class="card-link">more info</a>
             </div>
         </div>`
 }
@@ -18,14 +24,14 @@ function armarDiv (objeto){
 function imprimirDatos (lista, ubicacion){
     for (let elemento of lista){
         let fechaEvento = new Date(elemento.date).getTime();
-        let fechaLimite = new Date('2023-01-01').getTime();
+        let fechaLimite = new Date(currentDate).getTime();
         if (fechaEvento < fechaLimite) {
             ubicacion.innerHTML += armarDiv(elemento);
         }
     }
 }
 
-imprimirDatos(data.events , section)
+imprimirDatos(events , section)
 
 //task 3
 
