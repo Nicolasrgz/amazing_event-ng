@@ -92,7 +92,7 @@ formulario.addEventListener('change', ()=>{
   let checkedCheckbox = formulario.querySelectorAll("input[name='checkbox']:checked");
   if (checkedCheckbox.length === 0) {
     section.innerHTML = "";
-    imprimirDatos(events, section);
+    imprimirDatos(eventosFiltrados, section);
   } else {
     checkedCheckbox.forEach(checkbox => {
       eventosFiltrados = filtrarPorCategoria(eventosFiltrados, checkbox.value);
