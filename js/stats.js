@@ -39,3 +39,4 @@ function printTable (data, ubicacion){
 function assistanceEvents (name, capacidad, assistance){
     return `${name} su porcentaje de asistencia fue de ${(assistance * 100)/capacidad}`  
 }
+
