@@ -203,7 +203,8 @@ header, footer{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: black 2px solid;
+   border: #022247 2px solid;
+   border-radius: 30px ;
 }
 
 .datos-details{
@@ -212,7 +213,6 @@ header, footer{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 2px solid black;
 }
 
 .h5-p{
@@ -255,6 +255,7 @@ header, footer{
         align-items: center;
         gap: 1rem;
         font-size: 20px;
+        border-radius: 30px ;
     }
 }
 
@@ -273,7 +274,7 @@ header, footer{
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        border: black 2px solid;
+        
     }
     
     .datos-details{
