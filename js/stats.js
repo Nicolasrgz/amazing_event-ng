@@ -10,15 +10,16 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")
     const eventoMayorAsistencia = calcularPorcentajeMayor(apiEvents.events.map(event => event.name), apiEvents.events.map(event => event.assistance), apiEvents.events.map(event => event.capacity));
     const eventoMenorAsistencia = calcularMenorPorcentaje(apiEvents.events.map(event => event.name), apiEvents.events.map(event => event.assistance), apiEvents.events.map(event => event.capacity));
     const eventoConMayorCapacidad = mayorAsistencia(apiEvents.events.map(event => event.name), apiEvents.events.map(event => event.capacity));
-  
+    const datosUp = imprimirDatosUp(apiEvents.events);
+    
+    //const datosPast = imprimirDatosPast(apiEvents.events)
     estructuraTable1(eventoMayorAsistencia, eventoMenorAsistencia, eventoConMayorCapacidad);
   });
   
-
   function calcularPorcentajeMayor(name, asistencia, capacidad) {
     let arrayDeDatos = [];
     for (let i = 0; i < apiEvents.events.length; i++) {
-      if (!isNaN(asistencia[i]) && !isNaN(capacidad[i])) {
+      if ( !isNaN(capacidad[i])) {
         let porcentaje = (asistencia[i] * 100) / capacidad[i];
         let elemento = { name: name[i], porcentaje: porcentaje };
         arrayDeDatos.push(elemento);
@@ -27,16 +28,14 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")
     const eventoMayorAsistencia = arrayDeDatos.reduce((max, current) => {
       return current.porcentaje > max.porcentaje ? current : max;
     });
-    
+
   return ((eventoMayorAsistencia.name + " : " + eventoMayorAsistencia.porcentaje.toFixed(2) + "%"))
   }
   
-
-
   function calcularMenorPorcentaje(name, asistencia, capacidad) {
     let arrayDeDatos = [];
     for (let i = 0; i < apiEvents.events.length; i++) {
-      if (!isNaN(asistencia[i]) && !isNaN(capacidad[i])) {
+      if (!isNaN(capacidad[i])) {
         let porcentaje = (asistencia[i] * 100) / capacidad[i];
         let elemento = { name: name[i], porcentaje: porcentaje };
         arrayDeDatos.push(elemento);
@@ -48,7 +47,6 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")
     });
     
      return (eventoMenorAsistencia.name + ": " + eventoMenorAsistencia.porcentaje.toFixed(2) + "%");
-    
   }
   
   function mayorAsistencia(name, capacidad) {
@@ -80,8 +78,65 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")
         <td>${mayorCapacidad}</td>
       </tr>
     `;
-    
-    // Insertar la estructura en la tabla
+
     table1.innerHTML = estructura;
   }
+  //upcoming tiene 19 eventos
+  function imprimirDatosUp(data) {
+    let datosFiltrados = [];
   
+    for (let elemento of data) {
+      let fechaEvento = new Date(elemento.date).getTime();
+      let fechaLimite = new Date(apiEvents.currentDate).getTime();
+  
+      if (fechaEvento > fechaLimite) {
+        const categoria = elemento.category;
+  
+      if (!datosFiltrados[categoria]) {
+        datosFiltrados[categoria] = [];
+      }
+      datosFiltrados[categoria].push(elemento);
+      
+
+    }
+  }
+  console.log(datosFiltrados)
+  return datosFiltrados;
+}
+
+function estructura2 (categoria, ingreso, porcentaje ) {
+  return `
+
+  <tbody>
+  <tr>
+    <td>${categoria}</td>
+    <td>${ingreso}</td>
+    <td>${porcentaje}</td>
+  </tr>
+  </tbody>
+`
+}
+
+
+
+
+
+    //past tiene 18 eventos 
+// function imprimirDatosPast (lista){
+//   let datosFiltrados = [];
+//   for (let elemento of lista){
+//       let fechaEvento = new Date(elemento.date).getTime();
+//       let fechaLimite = new Date(apiEvents.currentDate).getTime();
+
+//       if (fechaEvento < fechaLimite) {
+//         const categoria = elemento.category
+
+//       if (!datosFiltrados[categoria]){
+//         datosFiltrados[categoria] = [];
+//       }
+//       datosFiltrados[categoria].push(elemento);  
+//     }
+//   }
+//    console.log(datosFiltrados)
+//    return datosFiltrados
+// }
