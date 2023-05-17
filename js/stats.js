@@ -12,11 +12,11 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")
     const eventoConMayorCapacidad = mayorAsistencia(apiEvents.events.map(event => event.name), apiEvents.events.map(event => event.capacity));
     const datosUp = imprimirDatosUp(apiEvents.events);
     const datosPast = imprimirDatosPast(apiEvents.events)
-    //const datosPast = imprimirDatosPast(apiEvents.events)
+
     estructuraTable1(eventoMayorAsistencia, eventoMenorAsistencia, eventoConMayorCapacidad);
   });
   
-  function calcularPorcentajeMayor(name, asistencia, capacidad) {
+function calcularPorcentajeMayor(name, asistencia, capacidad) {
     let arrayDeDatos = [];
     for (let i = 0; i < apiEvents.events.length; i++) {
       if ( !isNaN(capacidad[i])) {
@@ -30,9 +30,9 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")
     });
 
   return ((eventoMayorAsistencia.name + " : " + eventoMayorAsistencia.porcentaje.toFixed(2) + "%"))
-  }
+}
   
-  function calcularMenorPorcentaje(name, asistencia, capacidad) {
+function calcularMenorPorcentaje(name, asistencia, capacidad) {
     let arrayDeDatos = [];
     for (let i = 0; i < apiEvents.events.length; i++) {
       if (!isNaN(capacidad[i])) {
@@ -47,9 +47,9 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")
     });
     
      return (eventoMenorAsistencia.name + ": " + eventoMenorAsistencia.porcentaje.toFixed(2) + "%");
-  }
+}
   
-  function mayorAsistencia(name, capacidad) {
+function mayorAsistencia(name, capacidad) {
     let arrayDeDatos = [];
     for (let i = 0; i < apiEvents.events.length; i++) {
       if (capacidad[i]) {
@@ -63,9 +63,9 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")
       const eventoConMayorCapacidad = mayorCapacidad[0];
       return (eventoConMayorCapacidad.name + ": " + eventoConMayorCapacidad.capacity);
     }
-  }
+}
 
-  function estructuraTable1(eventoMayorAsistencia, eventoMenorAsistencia, mayorCapacidad) {
+function estructuraTable1(eventoMayorAsistencia, eventoMenorAsistencia, mayorCapacidad) {
     let estructura = `
       <tr>
         <th>Event with the highest % of attendance</th>
@@ -87,8 +87,8 @@ function estructura2(categoria, totalCategoria, promedioCategoria) {
   return `
       <tr>
         <td>${categoria}</td>
-        <td>${totalCategoria}</td>
-        <td>${promedioCategoria}</td>
+        <td>$${totalCategoria}</td>
+        <td>${promedioCategoria}%</td>
       </tr>
   `;
 }
@@ -122,8 +122,6 @@ function imprimirDatosUp(data) {
   }
 
   table2.innerHTML = estructuraTabla;
-
-  console.log(datosFiltrados);
   return datosFiltrados;
 }
 
@@ -168,7 +166,5 @@ function imprimirDatosPast(data) {
   }
 
   table3.innerHTML = estructuraTabla;
-
-  console.log(datosFiltrados);
   return datosFiltrados;
 }
