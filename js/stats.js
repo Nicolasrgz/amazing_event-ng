@@ -1,6 +1,6 @@
 const table1 = document.getElementById('table-1');
-const table2 = document.getElementById('table-2')
-const table3 = document.getElementById('table-3')
+const table2 = document.getElementById('tbody-table-2')
+const table3 = document.getElementById('tbody-table-3')
 
 let apiEvents;
 fetch("https://mindhub-xj03.onrender.com/api/amazing")
@@ -11,7 +11,7 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")
     const eventoMenorAsistencia = calcularMenorPorcentaje(apiEvents.events.map(event => event.name), apiEvents.events.map(event => event.assistance), apiEvents.events.map(event => event.capacity));
     const eventoConMayorCapacidad = mayorAsistencia(apiEvents.events.map(event => event.name), apiEvents.events.map(event => event.capacity));
     const datosUp = imprimirDatosUp(apiEvents.events);
-    
+    const datosPast = imprimirDatosPast(apiEvents.events)
     //const datosPast = imprimirDatosPast(apiEvents.events)
     estructuraTable1(eventoMayorAsistencia, eventoMenorAsistencia, eventoConMayorCapacidad);
   });
@@ -81,62 +81,94 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")
 
     table1.innerHTML = estructura;
   }
-  //upcoming tiene 19 eventos
-  function imprimirDatosUp(data) {
-    let datosFiltrados = [];
-  
-    for (let elemento of data) {
-      let fechaEvento = new Date(elemento.date).getTime();
-      let fechaLimite = new Date(apiEvents.currentDate).getTime();
-  
-      if (fechaEvento > fechaLimite) {
-        const categoria = elemento.category;
-  
+//upcoming tiene 19 eventos
+
+function estructura2(categoria, totalCategoria, promedioCategoria) {
+  return `
+      <tr>
+        <td>${categoria}</td>
+        <td>${totalCategoria}</td>
+        <td>${promedioCategoria}</td>
+      </tr>
+  `;
+}
+
+function imprimirDatosUp(data) {
+  let datosFiltrados = {};
+
+  for (let elemento of data) {
+    let fechaEvento = new Date(elemento.date).getTime();
+    let fechaLimite = new Date(apiEvents.currentDate).getTime();
+
+    if (fechaEvento > fechaLimite) {
+      const categoria = elemento.category;
+
       if (!datosFiltrados[categoria]) {
         datosFiltrados[categoria] = [];
       }
       datosFiltrados[categoria].push(elemento);
-      
-
     }
   }
-  console.log(datosFiltrados)
+
+  let estructuraTabla = '';
+  for (let categoria in datosFiltrados) {
+    let totalCategoria = datosFiltrados[categoria].reduce((total, elemento) => {
+      return total + (elemento.price * elemento.estimate);
+    }, 0);
+    let promedioCategoria = datosFiltrados[categoria].reduce((promedio, elemento) => {
+      return promedio + ((elemento.estimate * 100 / elemento.capacity)/ datosFiltrados[categoria].length);
+    }, 0);
+    estructuraTabla += estructura2(categoria, totalCategoria, promedioCategoria.toFixed(2));
+  }
+
+  table2.innerHTML = estructuraTabla;
+
+  console.log(datosFiltrados);
   return datosFiltrados;
 }
 
-function estructura2 (categoria, ingreso, porcentaje ) {
-  return `
+// estructura 3
 
-  <tbody>
-  <tr>
-    <td>${categoria}</td>
-    <td>${ingreso}</td>
-    <td>${porcentaje}</td>
-  </tr>
-  </tbody>
-`
+function estructura3(categoria, totalCategoria, promedioCategoria) {
+  return `
+      <tr class= "col-12">
+        <td>${categoria}</td>
+        <td>$${totalCategoria}</td>
+        <td>${promedioCategoria}%</td>
+      </tr>
+  `;
 }
 
+function imprimirDatosPast(data) {
+  let datosFiltrados = {};
 
+  for (let elemento of data) {
+    let fechaEvento = new Date(elemento.date).getTime();
+    let fechaLimite = new Date(apiEvents.currentDate).getTime();
 
+    if (fechaEvento < fechaLimite) {
+      const categoria = elemento.category;
 
+      if (!datosFiltrados[categoria]) {
+        datosFiltrados[categoria] = [];
+      }
+      datosFiltrados[categoria].push(elemento);
+    }
+  }
 
-    //past tiene 18 eventos 
-// function imprimirDatosPast (lista){
-//   let datosFiltrados = [];
-//   for (let elemento of lista){
-//       let fechaEvento = new Date(elemento.date).getTime();
-//       let fechaLimite = new Date(apiEvents.currentDate).getTime();
+  let estructuraTabla = '';
+  for (let categoria in datosFiltrados) {
+    let totalCategoria = datosFiltrados[categoria].reduce((total, elemento) => {
+      return total + (elemento.price * elemento.assistance);
+    }, 0);
+    let promedioCategoria = datosFiltrados[categoria].reduce((promedio, elemento) => {
+      return promedio + ((elemento.assistance * 100 / elemento.capacity)/ datosFiltrados[categoria].length);
+    }, 0);
+    estructuraTabla += estructura3(categoria, totalCategoria, promedioCategoria.toFixed(2));
+  }
 
-//       if (fechaEvento < fechaLimite) {
-//         const categoria = elemento.category
+  table3.innerHTML = estructuraTabla;
 
-//       if (!datosFiltrados[categoria]){
-//         datosFiltrados[categoria] = [];
-//       }
-//       datosFiltrados[categoria].push(elemento);  
-//     }
-//   }
-//    console.log(datosFiltrados)
-//    return datosFiltrados
-// }
+  console.log(datosFiltrados);
+  return datosFiltrados;
+}
