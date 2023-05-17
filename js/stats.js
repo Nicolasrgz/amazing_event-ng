@@ -2,7 +2,7 @@ const table1 = document.getElementById('table-1');
 const table2 = document.getElementById('tbody-table-2')
 const table3 = document.getElementById('tbody-table-3')
 
-let apiEvents;
+let apiEvents
 fetch("https://mindhub-xj03.onrender.com/api/amazing")
   .then(res => res.json())
   .then(data => {
@@ -10,8 +10,8 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")
     const eventoMayorAsistencia = calcularPorcentajeMayor(apiEvents.events.map(event => event.name), apiEvents.events.map(event => event.assistance), apiEvents.events.map(event => event.capacity));
     const eventoMenorAsistencia = calcularMenorPorcentaje(apiEvents.events.map(event => event.name), apiEvents.events.map(event => event.assistance), apiEvents.events.map(event => event.capacity));
     const eventoConMayorCapacidad = mayorAsistencia(apiEvents.events.map(event => event.name), apiEvents.events.map(event => event.capacity));
-    const datosUp = imprimirDatosUp(apiEvents.events);
-    const datosPast = imprimirDatosPast(apiEvents.events)
+    imprimirDatosUp(apiEvents.events);
+    imprimirDatosPast(apiEvents.events);
 
     estructuraTable1(eventoMayorAsistencia, eventoMenorAsistencia, eventoConMayorCapacidad);
   });
@@ -25,12 +25,12 @@ function calcularPorcentajeMayor(name, asistencia, capacidad) {
         arrayDeDatos.push(elemento);
       }}
     
-    const eventoMayorAsistencia = arrayDeDatos.reduce((max, current) => {
-      return current.porcentaje > max.porcentaje ? current : max;
+    const eventoMayorAsistencia = arrayDeDatos.reduce((max, asistencia) => {
+      return asistencia.porcentaje > max.porcentaje ? asistencia : max;
     });
 
-  return ((eventoMayorAsistencia.name + " : " + eventoMayorAsistencia.porcentaje.toFixed(2) + "%"))
-}
+  return ((eventoMayorAsistencia.name + ": " + eventoMayorAsistencia.porcentaje.toFixed(2) + "%"))
+};
   
 function calcularMenorPorcentaje(name, asistencia, capacidad) {
     let arrayDeDatos = [];
@@ -42,8 +42,8 @@ function calcularMenorPorcentaje(name, asistencia, capacidad) {
       }
     }
     
-    const eventoMenorAsistencia = arrayDeDatos.reduce((min, current) => {
-      return current.porcentaje < min.porcentaje ? current : min;
+    const eventoMenorAsistencia = arrayDeDatos.reduce((min, asistencia) => {
+      return asistencia.porcentaje < min.porcentaje ? asistencia : min;
     });
     
      return (eventoMenorAsistencia.name + ": " + eventoMenorAsistencia.porcentaje.toFixed(2) + "%");
@@ -67,12 +67,12 @@ function mayorAsistencia(name, capacidad) {
 
 function estructuraTable1(eventoMayorAsistencia, eventoMenorAsistencia, mayorCapacidad) {
     let estructura = `
-      <tr>
+      <tr class = "text-center">
         <th>Event with the highest % of attendance</th>
         <th>Event with the lowest % of attendance</th>
         <th>Event with larger capacity</th>
       </tr>
-      <tr>
+      <tr class = "text-center">
         <td>${eventoMayorAsistencia}</td>
         <td>${eventoMenorAsistencia}</td>
         <td>${mayorCapacidad}</td>
@@ -85,7 +85,7 @@ function estructuraTable1(eventoMayorAsistencia, eventoMenorAsistencia, mayorCap
 
 function estructura2(categoria, totalCategoria, promedioCategoria) {
   return `
-      <tr>
+      <tr class = "text-center">
         <td>${categoria}</td>
         <td>$${totalCategoria}</td>
         <td>${promedioCategoria}%</td>
@@ -124,12 +124,10 @@ function imprimirDatosUp(data) {
   table2.innerHTML = estructuraTabla;
   return datosFiltrados;
 }
-
 // estructura 3
-
 function estructura3(categoria, totalCategoria, promedioCategoria) {
   return `
-      <tr class= "col-12">
+      <tr class= "col-12 text-center">
         <td>${categoria}</td>
         <td>$${totalCategoria}</td>
         <td>${promedioCategoria}%</td>
