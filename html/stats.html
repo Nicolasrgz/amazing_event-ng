@@ -33,7 +33,7 @@
       <main>
         <section class="contenedor-carousel">
           <div id="carouselExampleFade" class="carousel slide carousel-fade">
-            <h1>home</h1>
+            <h1>Stats</h1>
             <div class="carousel-inner">
               <div class="carousel-item active">
                 <img src="../img/comida.jpg" class="img-1 d-block w-100" alt="cine">
@@ -56,83 +56,37 @@
           </div>
         </section>
 
-        <div class="tabla-stats">
-            <table>
-                <thead>
-                  <tr>
-                    <th colspan="12">event statistics</th>
-                  </tr>
+        <div class="tabla-stats d-flex flex-column">
+          <h2 class="text-center">event statistics</h2>
+            <table id="table-1" class="">
+
+            </table>    
+            <h2 class="text-center">Upcoming events statistics by category</h2>       
+            <table id="table-2" class="">
+            <thead>
+              <tr class="text-center">
+              <th>category</th>
+              <th>Revenues</th>
+              <th>% of attendance</th>
+              </tr>
+              </thead>
+              <tbody id="tbody-table-2">
+
+              </tbody>
+            </table>  
+            <h2 class="text-center">Past events statistics by category</h2>  
+            <table id="table-3" class="">
+              <thead>
+                <tr class="text-center">
+                <th>category</th>
+                <th>Revenues</th>
+                <th>% of attendance</th>
+                </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Event with the highest percentage of attendance</td>
-                    <td>Event with the lowest percentage of attendance</td>
-                    <td>Event with larger capacity</td>
-                  </tr>
-                  <tr>
-                    <td class="td-op">-</td>
-                    <td class="td-op">-</td>
-                    <td class="td-op">-</td>
-                  </tr>
-                  <tr>
-                    <th colspan="12">Upcoming event statistics by category</th>
-                  </tr>
-                  <tr>
-                    <td>categories</td>
-                    <td>revenues</td>
-                    <td>percentage of attendance</td>
-                  </tr>
-                  <tr>
-                    <td class="td-op">-</td>
-                    <td class="td-op">-</td>
-                    <td class="td-op">-</td>
-                  </tr>
-                  <tr>
-                    <td class="td-op">-</td>
-                    <td class="td-op">-</td>
-                    <td class="td-op">-</td>
-                  </tr>
-                  <tr>
-                    <td class="td-op">-</td>
-                    <td class="td-op">-</td>
-                    <td class="td-op">-</td>
-                  </tr>
-                  <tr>
-                    <th colspan="12">Past Events Statistic by category</th>
-                  </tr>
-                  <tr>
-                    <td>categories</td>
-                    <td>revenues</td>
-                    <td>percentage of attendance</td>
-                  </tr>
-                  <tr>
-                    <td class="td-op">-</td>
-                    <td class="td-op">.</td>
-                    <td class="td-op">-</td>
-                  </tr>
-                  <tr>
-                    <td class="td-op">-</td>
-                    <td class="td-op">.</td>
-                    <td class="td-op">-</td>
-                  </tr>
-                  <tr>
-                    <td class="td-op">-</td>
-                    <td class="td-op">.</td>
-                    <td class="td-op">-</td>
-                  </tr>
-                  <tr>
-                    <td class="td-op">-</td>
-                    <td class="td-op">.</td>
-                    <td class="td-op">-</td>
-                  </tr>
-                  <tr>
-                    <td class="td-op">-</td>
-                    <td class="td-op">.</td>
-                    <td class="td-op">-</td>
-                  </tr>
+                <tbody id="tbody-table-3">
+                  
                 </tbody>
-              </table>
-              
+            </table>
             </div>
       </main>
       <footer>
@@ -144,6 +98,7 @@
         <p class="logos-footer">cohort 47</p>
       </footer>
 </div>
+    <script src="../js/stats.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>
